@@ -1,4 +1,4 @@
-package br.com.sancrisxa.pic_pay_simplificado_senior.exception;
+package br.com.sancrisxa.pic_pay_simplificado_senior.transaction;
 
 public class InvalidTransactionException extends RuntimeException {
 

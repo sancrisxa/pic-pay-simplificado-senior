@@ -1,7 +1,7 @@
 package br.com.sancrisxa.pic_pay_simplificado_senior.transaction;
 
 import br.com.sancrisxa.pic_pay_simplificado_senior.authorization.AuthorizerService;
-import br.com.sancrisxa.pic_pay_simplificado_senior.exception.InvalidTransactionException;
+import br.com.sancrisxa.pic_pay_simplificado_senior.notification.NotificationService;
 import br.com.sancrisxa.pic_pay_simplificado_senior.wallet.Wallet;
 import br.com.sancrisxa.pic_pay_simplificado_senior.wallet.WalletRepository;
 import br.com.sancrisxa.pic_pay_simplificado_senior.wallet.WalletType;
@@ -14,11 +14,13 @@ public class TransactionService {
     private final TransactionRepository transactionRepository;
     private final WalletRepository walletRepository;
     private final AuthorizerService authorizerService;
+    private final NotificationService notificationservice;
 
-    public TransactionService(TransactionRepository transactionRepository, WalletRepository walletRepository, AuthorizerService authorizerService) {
+    public TransactionService(TransactionRepository transactionRepository, WalletRepository walletRepository, AuthorizerService authorizerService, NotificationService notificationservice) {
         this.transactionRepository = transactionRepository;
         this.walletRepository = walletRepository;
         this.authorizerService = authorizerService;
+        this.notificationservice = notificationservice;
     }
 
     @Transactional
@@ -32,6 +34,8 @@ public class TransactionService {
         walletRepository.save(wallet.debit(transaction.value()));
 
         authorizerService.authorize(transaction);
+
+        notificationservice.notify(transaction);
 
         return newTransaction;
     }

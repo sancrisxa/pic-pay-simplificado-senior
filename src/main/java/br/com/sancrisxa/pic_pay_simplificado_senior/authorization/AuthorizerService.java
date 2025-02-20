@@ -1,7 +1,6 @@
 package br.com.sancrisxa.pic_pay_simplificado_senior.authorization;
 
 
-import br.com.sancrisxa.pic_pay_simplificado_senior.exception.UnathorizedTransactionException;
 import br.com.sancrisxa.pic_pay_simplificado_senior.transaction.Transaction;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
